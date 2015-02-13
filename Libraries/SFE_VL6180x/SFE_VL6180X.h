@@ -1,36 +1,36 @@
 /******************************************************************************
-SFE_VL6180X.h
-Library for VL6180x time of flight range finder.
-Casey Kuhns @ SparkFun Electronics
-10/29/2014
-https://github.com/sparkfun/
-
-The VL6180x by ST micro is a time of flight range finder that
-uses pulsed IR light to determine distances from object at close
-range.  The average range of a sensor is between 0-200mm
-
-In this file are the function prototypes in the VL6180x class
-
-Resources:
-This library uses the Arduino Wire.h to complete I2C transactions.
-
-Development environment specifics:
-	IDE: Arduino 1.0.5
-	Hardware Platform: Arduino Pro 3.3V/8MHz
-	VL6180x Breakout Version: 1.0
-
-Some settings and initial values come from code written by Kris Winer
- VL6180X_t3 Basic Example Code
- by: Kris Winer
- date: September 1, 2014
- license: Beerware - Use this code however you'd like. If you 
- find it useful you can buy me a beer some time.
-
-This code is beerware. If you see me (or any other SparkFun employee) at the
-local pub, and you've found our code helpful, please buy us a round!
-
-Distributed as-is; no warranty is given.
-******************************************************************************/
+ * SFE_VL6180X.h
+ * Library for VL6180x time of flight range finder.
+ * Casey Kuhns @ SparkFun Electronics
+ * 10/29/2014
+ * https://github.com/sparkfun/
+ * 
+ * The VL6180x by ST micro is a time of flight range finder that
+ * uses pulsed IR light to determine distances from object at close
+ * range.  The average range of a sensor is between 0-200mm
+ * 
+ * In this file are the function prototypes in the VL6180x class
+ * 
+ * Resources:
+ * This library uses the Arduino Wire.h to complete I2C transactions.
+ * 
+ * Development environment specifics:
+ * 	IDE: Arduino 1.0.5
+ * 	Hardware Platform: Arduino Pro 3.3V/8MHz
+ * 	VL6180x Breakout Version: 1.0
+ * 
+ * Some settings and initial values come from code written by Kris Winer
+ * VL6180X_t3 Basic Example Code
+ * by: Kris Winer
+ * date: September 1, 2014
+ * license: Beerware - Use this code however you'd like. If you 
+ * find it useful you can buy me a beer some time.
+ * 
+ * This code is beerware. If you see me (or any other SparkFun employee) at the
+ * local pub, and you've found our code helpful, please buy us a round!
+ * 
+ * Distributed as-is; no warranty is given.
+ ******************************************************************************/
 
 #ifndef SFE_VL6180X_h
 #define SFE_VL6180X_h
@@ -100,67 +100,82 @@ Distributed as-is; no warranty is given.
 #define VL6180X_I2C_SLAVE_DEVICE_ADDRESS             0x0212
 #define VL6180X_INTERLEAVED_MODE_ENABLE              0x02A3
 
+
+enum vl6180x_als_gain { //Data sheet shows gain values as binary list
+
+GAIN_20 = 0, // Actual ALS Gain of 20
+GAIN_10,     // Actual ALS Gain of 10.32
+GAIN_5,      // Actual ALS Gain of 5.21
+GAIN_2_5,    // Actual ALS Gain of 2.60
+GAIN_1_67,   // Actual ALS Gain of 1.72
+GAIN_1_25,   // Actual ALS Gain of 1.28
+GAIN_1 ,     // Actual ALS Gain of 1.01
+GAIN_40,     // Actual ALS Gain of 40
+
+};
+
 struct VL6180xIdentification
 {
-   uint8_t idModel;
-   uint8_t idModelRevMajor;
-   uint8_t idModelRevMinor;
-   uint8_t idModuleRevMajor;
-   uint8_t idModuleRevMinor;
-   uint16_t idDate;
-   uint16_t idTime;
+  uint8_t idModel;
+  uint8_t idModelRevMajor;
+  uint8_t idModelRevMinor;
+  uint8_t idModuleRevMajor;
+  uint8_t idModuleRevMinor;
+  uint16_t idDate;
+  uint16_t idTime;
 };
 
 
 class VL6180x
 {
-  public:	
-    //Initalize library with default address
-    VL6180x(uint8_t address);
-    //Send manditory settings as stated in ST datasheet.
-    // http://www.st.com/st-web-ui/static/active/en/resource/technical/document/application_note/DM00122600.pdf (Section 1.3)
-    uint8_t VL6180xInit(void);
-    // Use default settings from ST data sheet section 9.
-    // http://www.st.com/st-web-ui/static/active/en/resource/technical/document/application_note/DM00122600.pdf
-    void VL6180xDefautSettings(void);
+public:	
+  //Initalize library with default address
+  VL6180x(uint8_t address);
+  //Send manditory settings as stated in ST datasheet.
+  // http://www.st.com/st-web-ui/static/active/en/resource/technical/document/application_note/DM00122600.pdf (Section 1.3)
+  uint8_t VL6180xInit(void);
+  // Use default settings from ST data sheet section 9.
+  // http://www.st.com/st-web-ui/static/active/en/resource/technical/document/application_note/DM00122600.pdf
+  void VL6180xDefautSettings(void);
 
-    // Get Range distance in (mm)
-    uint8_t getDistance();
-    // Get ALS level in Lux
-    uint8_t getAmbientLight();
+  // Get Range distance in (mm)
+  uint8_t getDistance();
+  // Get ALS level in Lux
+  float getAmbientLight(vl6180x_als_gain VL6180X_ALS_GAIN);
 
-    //Load structure provided by the user with identification info
-    //Structure example:
-    // struct VL6180xIdentification
-    //  {
-    //   uint8_t idModel;
-    //   uint8_t idModelRevMajor;
-    //   uint8_t idModelRevMinor;
-    //   uint8_t idModuleRevMajor;
-    //   uint8_t idModuleRevMinor;
-    //   uint16_t idDate;
-    //   uint16_t idTime;
-    //   };
-    void getIdentification(struct VL6180xIdentification *temp);
-    
-    //Change the default address of the device to allow multiple
-    //sensors on the bus.  Can use up to 127 sensors. New address
-    //is saved in non-volatile device memory.
-    uint8_t changeAddress();
-    
-   
-  private:
-    //Store address given when the class is initialized.
-    //This value can be changed by the changeAddress() function
-    int _i2caddress;
+  //Load structure provided by the user with identification info
+  //Structure example:
+  // struct VL6180xIdentification
+  //  {
+  //   uint8_t idModel;
+  //   uint8_t idModelRevMajor;
+  //   uint8_t idModelRevMinor;
+  //   uint8_t idModuleRevMajor;
+  //   uint8_t idModuleRevMinor;
+  //   uint16_t idDate;
+  //   uint16_t idTime;
+  //   };
+  void getIdentification(struct VL6180xIdentification *temp);
 
-    uint8_t VL6180x_getRegister(uint16_t registerAddr);
-    uint16_t VL6180x_getRegister16bit(uint16_t registerAddr);
+  //Change the default address of the device to allow multiple
+  //sensors on the bus.  Can use up to 127 sensors. New address
+  //is saved in non-volatile device memory.
+  uint8_t changeAddress(uint8_t old_address, uint8_t new_address);
 
-    void VL6180x_setRegister(uint16_t registerAddr, uint8_t data);
-    void VL6180x_setRegister16bit(uint16_t registerAddr, uint16_t data);
+
+private:
+  //Store address given when the class is initialized.
+  //This value can be changed by the changeAddress() function
+  int _i2caddress;
+
+  uint8_t VL6180x_getRegister(uint16_t registerAddr);
+  uint16_t VL6180x_getRegister16bit(uint16_t registerAddr);
+
+  void VL6180x_setRegister(uint16_t registerAddr, uint8_t data);
+  void VL6180x_setRegister16bit(uint16_t registerAddr, uint16_t data);
 
 
 };
 
 #endif
+
