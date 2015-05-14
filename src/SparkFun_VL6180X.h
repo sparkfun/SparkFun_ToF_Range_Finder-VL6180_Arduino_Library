@@ -1,9 +1,9 @@
 /******************************************************************************
- * SFE_VL6180X.h
+ * SparkFun_VL6180X.h
  * Library for VL6180x time of flight range finder.
  * Casey Kuhns @ SparkFun Electronics
  * 10/29/2014
- * https://github.com/sparkfun/
+ * https://github.com/sparkfun/SparkFun_ToF_Range_Finder-VL6180_Arduino_Library
  * 
  * The VL6180x by ST micro is a time of flight range finder that
  * uses pulsed IR light to determine distances from object at close
@@ -18,6 +18,8 @@
  * 	IDE: Arduino 1.0.5
  * 	Hardware Platform: Arduino Pro 3.3V/8MHz
  * 	VL6180x Breakout Version: 1.0
+ 
+ **Updated for Arduino 1.6.4 5/2015**
  * 
  * Some settings and initial values come from code written by Kris Winer
  * VL6180X_t3 Basic Example Code
@@ -32,8 +34,8 @@
  * Distributed as-is; no warranty is given.
  ******************************************************************************/
 
-#ifndef SFE_VL6180X_h
-#define SFE_VL6180X_h
+#ifndef SparkFun_VL6180X_h
+#define SparkFun_VL6180X_h
 
 #include <Arduino.h>
 
