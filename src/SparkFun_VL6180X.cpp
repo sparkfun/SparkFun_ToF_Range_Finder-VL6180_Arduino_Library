@@ -141,8 +141,8 @@ uint8_t VL6180x::getDistance()
 {
   VL6180x_setRegister(VL6180X_SYSRANGE_START, 0x01); //Start Single shot mode
   delay(10);
-  return VL6180x_getRegister(VL6180X_RESULT_RANGE_VAL);
   VL6180x_setRegister(VL6180X_SYSTEM_INTERRUPT_CLEAR, 0x07);
+  return VL6180x_getRegister(VL6180X_RESULT_RANGE_VAL);
   //	return distance;
 }
 
