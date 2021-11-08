@@ -4,24 +4,24 @@
  * Casey Kuhns @ SparkFun Electronics
  * 10/29/2014
  * https://github.com/sparkfun/SparkFun_ToF_Range_Finder-VL6180_Arduino_Library
- * 
+ *
  * The VL6180x by ST micro is a time of flight range finder that
  * uses pulsed IR light to determine distances from object at close
  * range.  The average range of a sensor is between 0-200mm
- * 
+ *
  * Resources:
  * This library uses the Arduino Wire.h to complete I2C transactions.
- * 
+ *
  * Development environment specifics:
  * 	IDE: Arduino 1.0.5
  * 	Hardware Platform: Arduino Pro 3.3V/8MHz
  * 	VL6180x Breakout Version: 1.0
  *  **Updated for Arduino 1.6.4 5/2015**
 
- * 
+ *
  * This code is beerware. If you see me (or any other SparkFun employee) at the
  * local pub, and you've found our code helpful, please buy us a round!
- * 
+ *
  * Distributed as-is; no warranty is given.
  ******************************************************************************/
 
@@ -43,51 +43,53 @@ const float GAIN_40   = 40;    // Actual ALS Gain of 40
 VL6180xIdentification identification;
 VL6180x sensor(VL6180X_ADDRESS);
 
-void setup() {
+void setup()
+{
 
-  Serial.begin(115200); //Start Serial at 115200bps
-  Wire.begin(); //Start I2C library
-  delay(100); // delay .1s
+  Serial.begin(115200); // Start Serial at 115200bps
+  Wire.begin();         // Start I2C library
+  delay(100);           // delay .1s
 
   sensor.getIdentification(&identification); // Retrieve manufacture info from device memory
-  printIdentification(&identification); // Helper function to print all the Module information
+  printIdentification(&identification);      // Helper function to print all the Module information
 
-    if(sensor.VL6180xInit() != 0){
-    Serial.println("FAILED TO INITALIZE"); //Initialize device and check for errors
-  }; 
+  if (sensor.VL6180xInit() != 0)
+  {
+    Serial.println("FAILED TO INITALIZE"); // Initialize device and check for errors
+  };
 
-  sensor.VL6180xDefautSettings(); //Load default settings to get started.
-  
-    delay(1000); // delay 1s
+  sensor.VL6180xDefautSettings(); // Load default settings to get started.
 
-
+  delay(1000); // delay 1s
 }
 
-void loop() {
+void loop()
+{
 
-  //Get Ambient Light level and report in LUX
+  // Get Ambient Light level and report in LUX
   Serial.print("Ambient Light Level (Lux) = ");
-  
-  //Input GAIN for light levels, 
-  // GAIN_20     // Actual ALS Gain of 20
-  // GAIN_10     // Actual ALS Gain of 10.32
-  // GAIN_5      // Actual ALS Gain of 5.21
-  // GAIN_2_5    // Actual ALS Gain of 2.60
-  // GAIN_1_67   // Actual ALS Gain of 1.72
-  // GAIN_1_25   // Actual ALS Gain of 1.28
-  // GAIN_1      // Actual ALS Gain of 1.01
-  // GAIN_40     // Actual ALS Gain of 40
-  
-  Serial.println( sensor.getAmbientLight(GAIN_1) );
 
-  //Get Distance and report in mm
+  // Input GAIN for light levels,
+  //  GAIN_20     // Actual ALS Gain of 20
+  //  GAIN_10     // Actual ALS Gain of 10.32
+  //  GAIN_5      // Actual ALS Gain of 5.21
+  //  GAIN_2_5    // Actual ALS Gain of 2.60
+  //  GAIN_1_67   // Actual ALS Gain of 1.72
+  //  GAIN_1_25   // Actual ALS Gain of 1.28
+  //  GAIN_1      // Actual ALS Gain of 1.01
+  //  GAIN_40     // Actual ALS Gain of 40
+
+  Serial.println(sensor.getAmbientLight(GAIN_1));
+
+  // Get Distance and report in mm
   Serial.print("Distance measured (mm) = ");
-  Serial.println( sensor.getDistance() ); 
+  Serial.println(sensor.getDistance());
 
-  delay(500);  
+  delay(500);
 };
 
-void printIdentification(struct VL6180xIdentification *temp){
+void printIdentification(struct VL6180xIdentification *temp)
+{
   Serial.print("Model ID = ");
   Serial.println(temp->idModel);
 
@@ -99,7 +101,7 @@ void printIdentification(struct VL6180xIdentification *temp){
   Serial.print("Module Rev = ");
   Serial.print(temp->idModuleRevMajor);
   Serial.print(".");
-  Serial.println(temp->idModuleRevMinor);  
+  Serial.println(temp->idModuleRevMinor);
 
   Serial.print("Manufacture Date = ");
   Serial.print((temp->idDate >> 3) & 0x001F);
@@ -115,5 +117,3 @@ void printIdentification(struct VL6180xIdentification *temp){
   Serial.println();
   Serial.println();
 }
-
-
