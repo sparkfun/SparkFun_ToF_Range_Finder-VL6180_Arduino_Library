@@ -19,7 +19,7 @@ jobs:
           sketch-paths: |
             - ./
           platforms: |
-            - source-url: "https://github.com/sparkfun/Arduino_Apollo3.git"
+            - source-url: "https://github.com/sparkfun/Arduino_Apollo3/releases/download/v2.0.6/Arduino_Apollo3.tar.gz"
             - name: "sparkfun:apollo3"
           libraries: |
             - source-url: "https://github.com/sparkfun/SparkFun_ToF_Range_Finder-VL6180_Arduino_Library.git"
