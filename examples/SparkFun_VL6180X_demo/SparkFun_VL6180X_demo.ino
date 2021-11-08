@@ -55,8 +55,10 @@ void setup()
 
   if (sensor.VL6180xInit() != 0)
   {
-    Serial.println("FAILED TO INITALIZE"); // Initialize device and check for errors
-  };
+    Serial.println("Failed to initialize. Freezing..."); // Initialize device and check for errors
+    while (1)
+      ;
+  }
 
   sensor.VL6180xDefautSettings(); // Load default settings to get started.
 
