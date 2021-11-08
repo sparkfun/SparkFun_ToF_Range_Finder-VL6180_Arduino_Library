@@ -7,7 +7,7 @@ SparkFun ToF Range Finder - VL6180 Arduino Library
 
 Arduino library with basic functionality of the VL6180 sensor. 
 
-[![Compile Sketch status](https://github.com/arduino/arduino-cli-example/actions/workflows/compile-sketch.yml/badge.svg)](https://github.com/arduino/arduino-cli-example/actions/workflows/compile-sketch.yml)
+[![Compile Sketch status](https://github.com/arduino/arduino-cli-example/actions/workflows/compile-sketch.yml/badge.svg)](https://github.com/sparkfun/SparkFun_ToF_Range_Finder-VL6180_Arduino_Library/actions/workflows/compile-sketch.yml)
 
 Repository Contents
 -------------------

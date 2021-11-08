@@ -129,7 +129,7 @@ uint8_t VL6180x::changeAddress(uint8_t old_address, uint8_t new_address)
   //  POWER CYCLING THE DEVICE REVERTS ADDRESS BACK TO 0X29
 
   if (old_address == new_address)
-    return old_address;
+    return old_adress;
   if (new_address > 127)
     return old_address;
 
