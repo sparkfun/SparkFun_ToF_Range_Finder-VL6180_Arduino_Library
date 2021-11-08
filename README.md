@@ -1,7 +1,7 @@
 SparkFun ToF Range Finder - VL6180 Arduino Library
 ========================================
 
-[![SparkFun ToF Range Finder Sensor - VL6180](https://cdn.sparkfun.com/assets/parts/1/3/5/5/4/15164-SparkFun_Qwiic_OpenLog-01.jpg)](https://www.sparkfun.com/products/12785)
+[![SparkFun ToF Range Finder Sensor - VL6180](https://cdn.sparkfun.com//assets/parts/9/5/9/7/12785-01.jpg)](https://www.sparkfun.com/products/12785)
 
 [*SparkFun ToF Range Finder Sensor - VL6180 (SEN-12785)*](https://www.sparkfun.com/products/12785)
 
