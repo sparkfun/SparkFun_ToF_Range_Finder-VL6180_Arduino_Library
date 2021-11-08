@@ -25,4 +25,4 @@ jobs:
             # This is formatted as a YAML list, which makes it possible to have multiple sketch paths if needed.
             - ./
           libraries: |
-            - name: SparkFun VL6180 Sensor
+            - source-url: https://github.com/sparkfun/SparkFun_ToF_Range_Finder-VL6180_Arduino_Library
