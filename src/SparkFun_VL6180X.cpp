@@ -32,7 +32,6 @@
 VL6180x::VL6180x(uint8_t address)
 // Initialize the Library
 {
-  Wire.begin(); // Arduino Wire library initializer
   _i2caddress = address; //set default address for communication
 }
 
